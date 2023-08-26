@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block addurl %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="card mb-5">
+            <h3 class="card-title text-center">User</h3>
+        <div class="card-body">
+            <h5 class="card-title">User Name: {{ user_author.username }}</h5>
+            <p class="card-text">First Name: {{ user_author.first_name }}</p>
+            <p class="card-text">Email: {{ user_author.email }}</p>
+        </div>
+
+    </div>
+
+
+
+<div class="card mb-5">
+    <h3 class="card-title text-center">Uploaded Photos</h3>
+    <div class="card-body">
+      {% for picture in user_author.pictures.all %}
+        {% if picture.is_private %}
+          {% if user.is_authenticated and user == user_author %}
+            <div class="mb-3">
+              <img src="{{ picture.photo.url }}" class="img-fluid">
+              <p class="mt-3">{{ picture.signature }}</p>
+            </div>
+          {% endif %}
+        {% else %}
+          <div class="mb-3">
+            <img src="{{ picture.photo.url }}" class="img-fluid">
+            <p class="mt-3">{{ picture.signature }}</p>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="card mb-5">
+    <h3 class="card-title text-center">Uploaded Albums</h3>
+    <div class="card-body">
+      {% for album in user_author.albums.all %}
+        {% if album.is_private %}
+          {% if user.is_authenticated and user == user_author %}
+            <p class="mb-3">{{ album.name }}</p>
+          {% endif %}
+        {% else %}
+          <p class="mb-3">{{ album.name }}</p>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="card mb-5">
+    <h3 class="card-title text-center">Favorited Photos</h3>
+    <div class="card-body">
+      {% for favorite in user_author.users.all %}
+        {% if favorite.picture %}
+          {% if favorite.picture.is_private %}
+            {% if user.is_authenticated and user == user_author %}
+              <div class="mb-3">
+                <img src="{{ favorite.picture.photo.url }}" class="img-fluid">
+                <p class="mt-3">{{ favorite.picture.signature }}</p>
+              </div>
+        {% endif %}
+        {% endif %}
+        {% endif %}
+
+      {% endfor %}
+
+    {% endblock %}
