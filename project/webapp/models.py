@@ -1,3 +1,5 @@
+import uuid
+
 from django.contrib.auth import get_user_model
 from django.db import models
 
@@ -12,6 +14,10 @@ class Picture(models.Model):
     album = models.ForeignKey('webapp.Album', related_name='pictures', on_delete=models.CASCADE, verbose_name='Album',
                               null=True, blank=True)
     is_private = models.BooleanField(default=False, verbose_name='Private')
+    token = models.UUIDField(default=uuid.uuid4, editable=False)
+
+    def generate_access_link(self):
+        return f"http://localhost:8000/picture/{str(self.token)}/"
 
     def __str__(self):
         return f'{self.signature}'

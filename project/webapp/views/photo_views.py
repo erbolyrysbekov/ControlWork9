@@ -1,7 +1,9 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.db.models import Q
+from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse, reverse_lazy
+from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from webapp.models import Picture, Album, Favorite
 from webapp.forms import PhotoForm
@@ -26,6 +28,19 @@ class PhotoView(LoginRequiredMixin, DetailView):
         users = Favorite.objects.filter(fav_pic=self.object).values_list('user', flat=True)
         context['users'] = get_user_model().objects.filter(id__in=users)
         return context
+
+
+class PictureView(View):
+    def photo_detail(self, token):
+        picture = get_object_or_404(Picture, token=token)
+        context = {'picture': picture}
+
+        return render(self, 'pictures/picture_view.html', context)
+
+    def generate_access_link(self, picture_id):
+        picture = get_object_or_404(Picture, id=picture_id)
+        access_link = picture.generate_access_link()
+        return redirect('pictures/picture_view.html', token=str(picture.token))
 
 
 #

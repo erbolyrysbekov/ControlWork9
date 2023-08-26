@@ -1,0 +1,10 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h1>Access link</h1>
+
+    <p><a href="{% url 'webapp:picture_view' picture.token %}">Picture link</a></p>
+
+{% endblock %}

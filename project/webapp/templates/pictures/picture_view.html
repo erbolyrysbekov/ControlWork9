@@ -2,6 +2,19 @@
 
 {% block content %}
     <div class="card mb-5">
+
+        {% if perms.webapp.change_picture or picture.author == request.user %}
+            <a href="{% url 'webapp:generate_access_link' picture.pk %}">Generate token</a>
+        {% endif %}
+
+        {% if perms.webapp.change_picture or picture.access_link %}
+            <p>Access link: <a href="{{ picture.access_link }}">{{ picture.access_link }}</a></p>
+                {% if picture.access_link %}
+                <p><a href="{% url 'webapp:picture_view' picture.token %}">Picture link</a></p>
+                {% endif %}
+        {% endif %}
+
+
         <img src="{{ picture.photo.url }}" alt="photo" class="card-img-top" style="width: 500px">
         <div class="card-body">
             <h5 class="card-title">Signature: {{ picture.signature }}</h5>
