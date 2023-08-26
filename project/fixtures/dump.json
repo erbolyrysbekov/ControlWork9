@@ -1,0 +1,52 @@
+[
+{
+  "model": "webapp.picture",
+  "pk": 5,
+  "fields": {
+    "photo": "img/default_9uqUMNT.jpg",
+    "signature": "1123",
+    "created_date": "2023-08-26T12:54:21.196Z",
+    "pic_author": 4,
+    "album": null,
+    "is_private": false,
+    "token": "235690ec-4f2e-4fac-879d-91d197b540a2"
+  }
+},
+{
+  "model": "webapp.picture",
+  "pk": 6,
+  "fields": {
+    "photo": "img/unnamed.jpg",
+    "signature": "111111",
+    "created_date": "2023-08-26T12:54:39.442Z",
+    "pic_author": 4,
+    "album": null,
+    "is_private": true,
+    "token": "aee2620b-fab9-4f3e-85cc-22a7d7144e5d"
+  }
+},
+{
+  "model": "webapp.picture",
+  "pk": 7,
+  "fields": {
+    "photo": "img/avatar-1_oQMxGZz.jpg",
+    "signature": "333",
+    "created_date": "2023-08-26T12:55:01.536Z",
+    "pic_author": 4,
+    "album": null,
+    "is_private": false,
+    "token": "77043059-fe97-4d91-9bc4-c8190791c66f"
+  }
+},
+{
+  "model": "webapp.album",
+  "pk": 4,
+  "fields": {
+    "name": "123123",
+    "description": "2222",
+    "album_author": 4,
+    "album_date": "2023-08-26T12:54:47.020Z",
+    "is_private": false
+  }
+}
+]
