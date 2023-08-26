@@ -1,0 +1,49 @@
+[
+{
+  "model": "auth.group",
+  "pk": 1,
+  "fields": {
+    "name": "useradmin",
+    "permissions": [
+      [
+        "change_album",
+        "webapp",
+        "album"
+      ],
+      [
+        "delete_album",
+        "webapp",
+        "album"
+      ],
+      [
+        "change_picture",
+        "webapp",
+        "picture"
+      ],
+      [
+        "delete_picture",
+        "webapp",
+        "picture"
+      ]
+    ]
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$IwWcJWcYWCOC237xrcVtQO$7iailhj1IiROTPaD1nBUtdDbxTqxyQbaPesh5GqzsAw=",
+    "last_login": "2023-08-26T12:57:01.372Z",
+    "is_superuser": true,
+    "username": "useradmin",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2023-08-26T12:52:30.691Z",
+    "groups": [],
+    "user_permissions": []
+  }
+}
+]
