@@ -1,0 +1,27 @@
+
+    {% for photo in pictures %}
+        <div class="card mb-5">
+            <img src="{{ photo.photo.url }}" alt="photo" class="card-img-top" style="width: 500px">
+            <div class="card-body">
+                <h5 class="card-title">Signature<a href="{% url 'webapp:picture_view' photo.pk %}">{{ photo.signature }}</a></h5>
+                <p class="card-text">Author: {{ photo.pic_author }}</p>
+                <p class="card-text"><small class="text-muted">{{ photo.created_date }}</small></p>
+                <p class="card-text">
+                    {% if photo.album %}
+                        Album: <a href="{% url "webapp:album_view" photo.album.pk %}" class="card-link">{{ photo.album }}</a>
+                    {% endif %}
+                </p>
+                <p class="card-text">
+                    {% if perms.webapp.change_picture or photo.author == request.user %}
+                        <a href="{% url 'webapp:picture_update' photo.pk %}" class="btn btn-warning">Update</a>
+                    {% endif %}
+                    {% if perms.webapp.delete_photo or photo.author == request.user %}
+                        <a href="{% url 'webapp:picture_delete' photo.pk %}" class="btn btn-danger">Delete</a>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    {% endfor %}
+{% if is_paginated %}
+    {% include 'partial/pagination.html' %}
+{% endif %}

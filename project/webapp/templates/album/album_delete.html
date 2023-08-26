@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 class="text-center fs-1 m-3 p-3">Are you sure want to delete photo "{{ album.name }}"?</h1>
+    <form method="POST" action="{% url "webapp:album_delete" album.pk %}" class="text-center">
+        {% csrf_token %}
+        <p><button type="submit" class="btn btn-primary btn-lg col-5">Yes</button></p>
+        <p><a class="btn btn-secondary btn-lg col-5" href="{% url "webapp:album_view" album.pk%}" role="button">Cancel</a></p>
+    </form>
+{% endblock %}

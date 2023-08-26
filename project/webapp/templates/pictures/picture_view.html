@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="card mb-5">
+        <img src="{{ picture.photo.url }}" alt="photo" class="card-img-top" style="width: 500px">
+        <div class="card-body">
+            <h5 class="card-title">Signature: {{ picture.signature }}</h5>
+            <p class="card-text">Author: {{ picture.pic_author }}</p>
+            <p class="card-text"><small class="text-muted">{{ picture.created_date }}</small></p>
+            <p class="card-text">
+            {% if picture.album %}
+                <a href="{% url 'webapp:album_view'  picture.album.pk %}" class="card-link">{{ picture.album }}</a>
+            {% endif %}
+            </p>
+            <p class="card-text">
+                {% if perms.webapp.change_picture or picture.author == request.user %}
+                    <a href="{% url 'webapp:picture_update' picture.pk %}" class="btn btn-warning">Update</a>
+                {% endif %}
+                {% if perms.webapp.delete_picture or picture.author == request.user %}
+                    <a href="{% url 'webapp:picture_delete' picture.pk %}" class="btn btn-danger">Delete</a>
+                {% endif %}
+
+                <p class="card-text">
+                    This user have in favorite
+                    {% for user in users %}
+                        <a href="{% url "accounts:profile" user.pk%}">{{ user.username }}</a>
+                    {% endfor %}
+                </p>
+
+        </div>
+    </div>
+{% endblock %}

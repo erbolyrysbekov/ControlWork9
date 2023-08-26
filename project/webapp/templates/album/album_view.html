@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="card mb-5">
+    <h5 class="card-title text-center m-3">Album</h5>
+        <div class="card-body">
+            <p class="card-text">Name: {{ album.name }}</p>
+             <p class="card-text">Description: {{ album.descriptions }}</p>
+             <p class="card-text">Author: {{ album.album_author }}</p>
+             <p class="card-text">Date: {{ album.album_date }}</p>
+
+            <p class="card-text">
+                {% if perms.webapp.change_album or album.author == request.user %}
+                    <a href="{% url 'webapp:album_update' album.pk %}" class="btn btn-warning">Update</a>
+                {% endif %}
+                {% if perms.webapp.delete_album or album.author == request.user %}
+                    <a href="{% url 'webapp:album_delete' album.pk %}" class="btn btn-danger">Delete</a>
+                {% endif %}
+            </p>
+
+        </div>
+    </div>
+    <h5 class="card-title text-center m-3">Photos: </h5>
+    {% include 'partial/photo_partial.html' %}
+
+    button???/sortivok???
+{% endblock %}

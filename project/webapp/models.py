@@ -1,8 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
-CHOICES = ['public']
-
 
 # Create your models here.
 class Picture(models.Model):
@@ -30,10 +28,13 @@ class Album(models.Model):
     def __str__(self):
         return f'{self.name}'
 
-    class Favorite(models.Model):
-        user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='users',  verbose_name='User')
-        fav_pic = models.ForeignKey('webapp.Picture', on_delete=models.CASCADE, null=True, blank=True, related_name='fav_pics', verbose_name='Fav Picture')
-        fav_album = models.ForeignKey('webapp.Album', on_delete=models.CASCADE, null=True, blank=True, related_name='fav_albums', verbose_name='Fav Album')
 
-        def __str__(self):
-            return f'{self.user}{self.fav_pic}{self.fav_album}'
+class Favorite(models.Model):
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='users', verbose_name='User')
+    fav_pic = models.ForeignKey('webapp.Picture', on_delete=models.CASCADE, null=True, blank=True,
+                                related_name='fav_pics', verbose_name='Fav Picture')
+    fav_album = models.ForeignKey('webapp.Album', on_delete=models.CASCADE, null=True, blank=True,
+                                  related_name='fav_albums', verbose_name='Fav Album')
+
+    def __str__(self):
+        return f'{self.user}{self.fav_pic}{self.fav_album}'

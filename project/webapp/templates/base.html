@@ -12,15 +12,34 @@
 
     <nav class="navbar bg-info">
       <div class="container mt-0">
-        <a class="navbar-brand" href="{% url 'poll_index' %}">Home</a>
+        <a class="navbar-brand" href="{% url 'webapp:index' %}">Home</a>
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            {% if request.user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'webapp:picture_create' %}">New Photo(+)</a>
+            </li>
 
-          {% block navigation %}
-          {% endblock %}
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'webapp:album_create' %}">Album Photo(+)</a>
+            </li>
+            {% endif %}
 
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+            {% block addurl %}
+            {% endblock %}
+            {% block navigation %}
+            {% endblock %}
+
+            {% if request.user.is_authenticated %}
+            <p class="ms-auto text-secondary d-inline-block my-0 py-auto">Hello, <a href="{% url 'accounts:profile' request.user.pk %}">{{ request.user.username }} </a></p>
+                <a class="btn btn-dark ms-2"
+                href="{% url 'accounts:logout' %}">Exit</a>
+            {% else %}
+            <a class="btn btn-dark ms-auto" href="{% url 'accounts:login' %}">Enter</a>
+            <a class="btn btn-outline-secondary ms-2" href="{% url 'accounts:create' %}">Registration</a>
+            {% endif %}
+        </ul>
+
+
       </div>
     </nav>
 
